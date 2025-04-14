@@ -1,7 +1,5 @@
 import org.openqa.selenium.*;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
@@ -9,7 +7,7 @@ public class InstagramSearch {
 
     WebDriver driver = new FirefoxDriver();
 
-    @BeforeTest
+    @BeforeSuite
     public void beforeTest() throws InterruptedException {
         System.out.println("=== BeforeTest: Launching Browser ===");
         System.setProperty("webdriver.firefox.driver", "C:\\Users\\newma\\Documents\\selenium_drivers\\geckodriver-v0.35.0-win32\\geckodriver.exe");
@@ -133,7 +131,7 @@ public class InstagramSearch {
         Thread.sleep(2000);
     }
 
-    @AfterTest
+    @AfterSuite
     public void afterTest() {
         System.out.println("=== AfterTest: Closing Browser ===");
         if (driver != null) {

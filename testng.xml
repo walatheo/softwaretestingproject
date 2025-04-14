@@ -12,6 +12,15 @@
                     <include name="searchClearAll"></include>
                 </methods>
             </class>
+            <class name="InstagramExplore">
+                <methods>
+                    <include name="testExploreScroll"></include>
+                    <include name="testExplorePost"></include>
+                    <include name="testExploreComment"></include>
+                    <include name="testExploreReact"></include>
+                    <include name="testExploreGoToPost"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
