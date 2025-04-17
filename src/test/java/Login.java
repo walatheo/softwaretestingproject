@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ public class Login {
 
     @BeforeClass
     public void setup() {
-        System.setProperty("webdriver.chrome.driver1","C:\\Users\\Tristan\\Browser Drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.firefox.driver", "C:\\Users\\newma\\Documents\\selenium_drivers\\geckodriver-v0.35.0-win32\\geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
 
@@ -91,11 +92,11 @@ public class Login {
         // Clearing the credentials for correct ones
         driver.findElement(By.name("username")).sendKeys(Keys.CONTROL + "a");
         Thread.sleep(1000);
-        driver.findElement(By.name("username")).sendKeys("tankderank");
+        driver.findElement(By.name("username")).sendKeys("replaceme");
         Thread.sleep(800);
         driver.findElement(By.name("password")).sendKeys(Keys.CONTROL + "a");
         Thread.sleep(1000);
-        driver.findElement(By.name("password")).sendKeys("Seleniumproject");
+        driver.findElement(By.name("password")).sendKeys("replaceme");
         Thread.sleep(800);
         driver.findElement(By.xpath("//button[@type='submit']")).click();
         Thread.sleep(5000);

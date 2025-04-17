@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -9,8 +10,8 @@ public class EditProfile {
 
     @BeforeClass
     public void beforeTest() {
-        System.setProperty("webdriver.chrome.driver1", "C:\\Users\\Tristan\\Browser Drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.firefox.driver", "C:\\Users\\newma\\Documents\\selenium_drivers\\geckodriver-v0.35.0-win32\\geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
 
@@ -19,11 +20,15 @@ public class EditProfile {
         driver.get("https://www.instagram.com/");
         Thread.sleep(2000);
         // Logging in
-        driver.findElement(By.name("username")).sendKeys("tankderank");
+        driver.findElement(By.name("username")).sendKeys("replaceme");
         Thread.sleep(800);
-        driver.findElement(By.name("password")).sendKeys("Seleniumproject");
+        driver.findElement(By.name("password")).sendKeys("replaceme");
         Thread.sleep(800);
         driver.findElement(By.xpath("//button[@type='submit']")).click();
+        Thread.sleep(10000);
+
+        WebElement notNow = driver.findElement(By.cssSelector("div.x1i10hfl"));
+        notNow.click();
         Thread.sleep(5000);
 
         //Clicking on Profile
@@ -39,7 +44,7 @@ public class EditProfile {
         WebElement create = driver.findElement(By.xpath("//span[text()='Create']"));
         create.click();
         Thread.sleep(2000);
-        driver.findElement(By.cssSelector("input._ac69[type='file']")).sendKeys("C:\\Users\\Tristan\\Pictures\\white terrior with glasses.jpeg");
+        driver.findElement(By.cssSelector("input._ac69[type='file']")).sendKeys("C:\\Users\\newma\\Downloads\\istockphoto-158894647-612x612.jpg");
         Thread.sleep(3000);
         driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/section/div/div/div[3]/div")).click();
         driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div/div/div/div/div[2]/div[8]/div/span/div/a/div")).click();
@@ -78,22 +83,16 @@ public class EditProfile {
         Thread.sleep(800);
 
         // Change gender
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[3]/div/div/form/div[2]/div[2]/div/div[1]/div")).click();
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[3]/div/div/form/div[3]/div[2]")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[3]/div[2]/input")).click();
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[3]/div[1]/div")).click();
         Thread.sleep(1000);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[3]/div[2]/input")).sendKeys("A ");
-        Thread.sleep(800);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[3]/div[2]/input")).sendKeys("project");
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[3]/div/div/form/div[2]/div[2]/div/div[1]/div")).click();
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[4]")).click();
         Thread.sleep(2000);
 
         // Saving changes
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[3]/div/div/form/div[5]/div")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div/div/div/div/div[2]/div[8]/div/span/div/a/div/div[2]/div/div/span/span")).click();
-        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[3]/div/div/form/div[6]/div")).click();
+
     }
 
     @Test(priority = 4) // Profile Photos

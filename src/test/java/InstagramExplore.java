@@ -1,6 +1,10 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.io.FileHandler;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import java.io.File;
+import java.io.IOException;
 
 public class InstagramExplore {
 
@@ -14,11 +18,11 @@ public class InstagramExplore {
         driver.manage().window().maximize();
 
         WebElement username = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[1]/div/label/input"));
-        username.sendKeys("newmanc3gen@gmail.com");
+        username.sendKeys("replaceme");
         Thread.sleep(2000);
 
         WebElement password = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[2]/div/label/input"));
-        password.sendKeys("password");
+        password.sendKeys("replaceme");
         Thread.sleep(2000);
 
         WebElement login = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[3]/button"));
@@ -35,18 +39,31 @@ public class InstagramExplore {
         driver.get("https://www.instagram.com/explore/");
         Thread.sleep(2000);
 
+        String currentURL = driver.getCurrentUrl();
+        String expectedURL = "https://www.instagram.com/explore/";
+
+        System.out.println("Current URL: " + currentURL);
+        Assert.assertEquals(currentURL, expectedURL, "URLs do not match.");
+        Thread.sleep(2000);
+
         JavascriptExecutor exe = (JavascriptExecutor) driver;
         exe.executeScript("window.scrollBy(0, 300)");
         Thread.sleep(2000);
     }
 
     @Test(priority = 2)
-    void testExplorePost() throws InterruptedException {
+    void testExplorePost() throws InterruptedException, IOException {
         driver.get("https://www.instagram.com/explore/");
         Thread.sleep(2000);
 
         WebElement post = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[2]/div/div[1]/div[4]"));
         post.click();
+        Thread.sleep(2000);
+
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        File src = screenshot.getScreenshotAs(OutputType.FILE);
+        File des = new File ("C:\\Users\\newma\\Documents\\screenshot.png");
+        FileHandler.copy(src, des);
         Thread.sleep(2000);
     }
 

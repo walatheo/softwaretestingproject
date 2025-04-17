@@ -2,7 +2,6 @@ import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
 public class InstagramSearch {
 
     WebDriver driver = new FirefoxDriver();
@@ -15,11 +14,11 @@ public class InstagramSearch {
         driver.manage().window().maximize();
 
         WebElement username = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[1]/div/label/input"));
-        username.sendKeys("newmanc3gen@gmail.com");
+        username.sendKeys("replaceme");
         Thread.sleep(2000);
 
         WebElement password = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[2]/div/label/input"));
-        password.sendKeys("password");
+        password.sendKeys("replaceme");
         Thread.sleep(2000);
 
         WebElement login = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[3]/button"));
@@ -106,6 +105,10 @@ public class InstagramSearch {
 
         WebElement post = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[2]/div/div[1]/div[1]"));
         post.click();
+        Thread.sleep(2000);
+
+        String currentURL = driver.getCurrentUrl();
+        System.out.println(currentURL);
         Thread.sleep(2000);
 
         WebElement likeButton = driver.findElement(By.xpath("/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/div/div/div"));

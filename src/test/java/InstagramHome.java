@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,27 +11,30 @@ import java.time.Duration;
 
 public class InstagramHome {
     public static void main(String[] args) throws InterruptedException {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
+        WebDriverManager.firefoxdriver().setup();
+        WebDriver driver = new FirefoxDriver();
         Actions actions = new Actions(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-
         driver.get("https://www.instagram.com/");
         driver.manage().window().maximize();
-
-
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
 
         // Login
 
-        driver.findElement(By.name("username")).sendKeys("rickyswagbrien");
-        driver.findElement(By.name("password")).sendKeys("Cabes1203");
+        driver.findElement(By.name("username")).sendKeys("replaceme");
+        driver.findElement(By.name("password")).sendKeys("replaceme");
         driver.findElement(By.xpath("//button[@type='submit']")).click();
 
+        Thread.sleep(10000);
+
         // Wait for feed or popup
+
+        WebElement notNow = driver.findElement(By.cssSelector("div.x1i10hfl"));
+        notNow.click();
+        Thread.sleep(5000);
 
         Thread.sleep(3000);
 
