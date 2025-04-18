@@ -1,33 +1,27 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class InstagramSearch {
 
-    WebDriver driver = new FirefoxDriver();
+    WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     public void beforeTest() throws InterruptedException {
         System.out.println("=== BeforeTest: Launching Browser ===");
-        System.setProperty("webdriver.firefox.driver", "C:\\Users\\newma\\Documents\\selenium_drivers\\geckodriver-v0.35.0-win32\\geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\SeleniumDrivers\\chromedriver-win64\\chromedriver.exe");
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("user-data-dir=C:\\Users\\Caleb Newman\\AppData\\Local\\Google\\Chrome\\User Data");
+        options.addArguments("profile-directory=Default"); // or Profile 1, 2, etc.
+
+        driver = new ChromeDriver(options);
+
         driver.get("https://www.instagram.com/");
         driver.manage().window().maximize();
-
-        WebElement username = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[1]/div/label/input"));
-        username.sendKeys("replaceme");
         Thread.sleep(2000);
-
-        WebElement password = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[2]/div/label/input"));
-        password.sendKeys("replaceme");
-        Thread.sleep(2000);
-
-        WebElement login = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[3]/button"));
-        login.click();
-        Thread.sleep(15000);
-
-        WebElement notNow = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div/div"));
-        notNow.click();
-        Thread.sleep(5000);
     }
 
     @Test(priority = 1)
@@ -41,7 +35,7 @@ public class InstagramSearch {
 
         WebElement searchInput = driver.findElement(By.cssSelector(".x1lugfcp"));
         searchInput.sendKeys("gordongram");
-        Thread.sleep(2000);
+        Thread.sleep(4000);
 
         WebElement firstResult = driver.findElement(By.cssSelector("a[href='/gordongram/']"));
         firstResult.click();
@@ -108,7 +102,7 @@ public class InstagramSearch {
         Thread.sleep(2000);
 
         String currentURL = driver.getCurrentUrl();
-        System.out.println(currentURL);
+        System.out.println("Searched post URL is : " + currentURL);
         Thread.sleep(2000);
 
         WebElement likeButton = driver.findElement(By.xpath("/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/div/div/div"));
@@ -134,7 +128,7 @@ public class InstagramSearch {
         Thread.sleep(2000);
     }
 
-    @AfterSuite
+    @AfterClass
     public void afterTest() {
         System.out.println("=== AfterTest: Closing Browser ===");
         if (driver != null) {

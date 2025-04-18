@@ -1,37 +1,30 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.io.IOException;
 
 public class InstagramExplore {
 
-    WebDriver driver = new FirefoxDriver();
+    WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     public void beforeTest() throws InterruptedException {
         System.out.println("=== BeforeTest: Launching Browser ===");
-        System.setProperty("webdriver.firefox.driver", "C:\\Users\\newma\\Documents\\selenium_drivers\\geckodriver-v0.35.0-win32\\geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\SeleniumDrivers\\chromedriver-win64\\chromedriver.exe");
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("user-data-dir=C:\\Users\\Caleb Newman\\AppData\\Local\\Google\\Chrome\\User Data");
+        options.addArguments("profile-directory=Default"); // or Profile 1, 2, etc.
+
+        driver = new ChromeDriver(options);
+
         driver.get("https://www.instagram.com/");
         driver.manage().window().maximize();
-
-        WebElement username = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[1]/div/label/input"));
-        username.sendKeys("replaceme");
         Thread.sleep(2000);
-
-        WebElement password = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[2]/div/label/input"));
-        password.sendKeys("replaceme");
-        Thread.sleep(2000);
-
-        WebElement login = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[1]/div[3]/button"));
-        login.click();
-        Thread.sleep(15000);
-
-        WebElement notNow = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div/div"));
-        notNow.click();
-        Thread.sleep(5000);
     }
 
     @Test(priority = 1)
@@ -40,9 +33,10 @@ public class InstagramExplore {
         Thread.sleep(2000);
 
         String currentURL = driver.getCurrentUrl();
-        String expectedURL = "https://www.instagram.com/explore/";
+        String expectedURL = "https://www.instagram.com/exploree/";
 
         System.out.println("Current URL: " + currentURL);
+        System.out.println("Asserting URL matches wrong expected URL on purpose ... ");
         Assert.assertEquals(currentURL, expectedURL, "URLs do not match.");
         Thread.sleep(2000);
 
@@ -62,7 +56,7 @@ public class InstagramExplore {
 
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File src = screenshot.getScreenshotAs(OutputType.FILE);
-        File des = new File ("C:\\Users\\newma\\Documents\\screenshot.png");
+        File des = new File ("C:\\Users\\Caleb Newman\\Documents\\TestingProject\\softwaretestingproject\\postScreenshot.png");
         FileHandler.copy(src, des);
         Thread.sleep(2000);
     }
@@ -72,11 +66,11 @@ public class InstagramExplore {
         driver.get("https://www.instagram.com/explore/");
         Thread.sleep(2000);
 
-        WebElement post = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[2]/div/div[2]/div[1]"));
+        WebElement post = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/section/main/div/div[2]/div/div[1]/div[4]"));
         post.click();
         Thread.sleep(2000);
 
-        WebElement commentBox = driver.findElement(By.cssSelector("textarea.x1i0vuye"));
+        WebElement commentBox = driver.findElement(By.xpath("//textarea[@aria-label='Add a comment…']"));
         commentBox.sendKeys("cool!");
         Thread.sleep(2000);
 
@@ -121,7 +115,13 @@ public class InstagramExplore {
         Thread.sleep(5000);
     }
 
-    @AfterSuite
+    @Test(priority = 6)
+    void getPostURL() throws InterruptedException {
+        String postURL = driver.getCurrentUrl();
+        System.out.println("Current post url is: " + postURL);
+    }
+
+    @AfterClass
     public void afterTest() {
         System.out.println("=== AfterTest: Closing Browser ===");
         if (driver != null) {
